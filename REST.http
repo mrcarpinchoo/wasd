@@ -1,0 +1,96 @@
+@host = http://localhost:3000
+@users = http://localhost:3000/api/users
+@images = http://localhost:3000/api/images
+@login = http://localhost:3000/api/login
+
+### GET request to all users
+GET {{users}}
+x-auth: 1001
+
+### GET request with query params
+GET {{users}}/?name=ivanna
+x-auth: 2001
+
+### GET request with query params
+GET {{users}}?pageSize=1&pageNum=2
+x-auth: 2001
+
+### GET req to an existent user
+GET {{users}}/10
+
+### GET req to a non-existent user
+GET {{users}}/11
+
+
+### POST req with an existent email
+POST {{users}}
+Content-Type: application/json
+
+{
+    "name": "Alejandro",
+    "email": "guillermo.romero@iteso.mx",
+    "password" : "2004"
+}
+
+### POST req with a non-existent email
+POST {{users}}
+Content-Type: application/json
+
+{
+    "name": "Gemini",
+    "email": "gemini@googl.com",
+    "password" : "gemini"
+}
+
+
+### PUT request with a non.existent email
+PUT {{users}}/guillermo.romero@google.mx
+Content-Type: application/json
+
+{
+    "name": "Guillermo",
+    "password": "2004"
+}
+
+### PUT request with an existent email
+PUT {{users}}/guillermo.romero@iteso.mx
+Content-Type: application/json
+
+{
+    "name": "Guillermo",
+    "password": "2004"
+}
+
+### DELETE request
+DELETE {{users}}/guillermo.romero@iteso.mx
+x-auth: 1001
+
+### GET request for images
+GET {{images}}/sora@openai.com
+
+### POST request for images
+POST {{images}}/sora@openai.com
+Content-Type: application/json
+
+{
+    "name": "soraImg1",
+    "url": "/sora/img1",
+    "description": "imaimagesge 1",
+    "binary": "this_is_a_binary_string"
+}
+
+###
+DELETE {{host}}/api/images/sora@openai.com/soraImg1
+
+###
+POST {{login}}
+Content-Type: application/json
+
+{
+    "email": "guillermo.romero@iteso.mx",
+    "password": "2004"
+}
+
+###
+GET {{images}}/own
+x-token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imd1aWxsZXJtby5yb21lcm9AaXRlc28ubXgiLCJfaWQiOiI2NjI3ZmRmNGEwZGUwODViZDdhMzc1OWIiLCJpYXQiOjE3MTM5MTM1NDksImV4cCI6MTcxMzkxMzcyOX0.vd5X06kjwZLWoJgwNorsA8ol3MaulpfKgBdRt-VULr4"
